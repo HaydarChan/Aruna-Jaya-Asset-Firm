@@ -66,7 +66,7 @@ export default function AboutPage() {
     {
       name: "Nataliana Alma",
       role: "Capital Market Analyst",
-      specialization: "Basic Materials, Energy",
+      specialization: "Technology, Energy",
       bio: "Nataliana focuses on materials and property, evaluating supply-demand, balance sheets, and valuation dispersion.",
       image: "/foto lily.jpg",
     },

@@ -291,6 +291,78 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* Video Introduction Section */}
+      <motion.section
+        className="py-16 bg-background"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-12" variants={stagger(0.1)}>
+            <motion.h2
+              className="text-3xl md:text-4xl font-italiana text-foreground mb-4"
+              variants={fadeInUp}
+            >
+              Discover Our Investment Approach
+            </motion.h2>
+            <motion.p
+              className="text-lg text-muted-foreground max-w-2xl mx-auto font-dm-sans font-light leading-relaxed"
+              variants={fadeInUp}
+            >
+              Watch how we transform market insights into sustainable growth opportunities
+            </motion.p>
+          </motion.div>
+
+          <motion.div 
+            className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl"
+            variants={scaleIn}
+          >
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              playsInline
+              preload="metadata"
+            >
+              <source src="/video-intro.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Video overlay for better text readability if needed */}
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            />
+            
+            {/* Play button overlay (optional, for manual control) */}
+            <motion.div 
+              className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black/20 cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              onClick={() => {
+                const video = document.querySelector('video');
+                if (video.paused) {
+                  video.play();
+                } else {
+                  video.pause();
+                }
+              }}
+            >
+              <motion.div
+                className="w-16 h-16 bg-primary/80 rounded-full flex items-center justify-center backdrop-blur-sm"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="w-0 h-0 border-l-[8px] border-l-white border-y-[6px] border-y-transparent ml-1" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* What We Do — At a Glance */}
       <motion.section
         className="py-24 bg-muted/20"

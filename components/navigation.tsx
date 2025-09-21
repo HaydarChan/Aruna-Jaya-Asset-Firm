@@ -26,7 +26,7 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <Image src={Logo} alt="Aruna Jaya Logo" width={60} height={60} />
-            <span className="text-2xl font-italiana text-primary">Aruna Jaya</span>
+            <span className="text-2xl font-italiana text-slate-800">Aruna Jaya</span>
           </Link>
 
           {/* Desktop Navigation */}
