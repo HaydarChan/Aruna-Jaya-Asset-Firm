@@ -1,247 +1,322 @@
+'use client'
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, TrendingUp, Shield, Users, BarChart3, Target, Award, Zap } from "lucide-react"
-import Link from "next/link"
+import { TrendingUp, Shield, Users, Zap, Send } from "lucide-react"
+import { motion, useReducedMotion } from "framer-motion"
 
 export default function HomePage() {
+  const prefersReducedMotion = useReducedMotion()
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  }
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.6 } },
+  }
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: prefersReducedMotion ? 1 : 0.96 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  }
+
+  const slideInImg = {
+    hidden: { opacity: 0, x: prefersReducedMotion ? 0 : 40 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const stagger = (delay = 0) => ({
+    hidden: {},
+    show: {
+      transition: {
+        delayChildren: delay,
+        staggerChildren: 0.12,
+      },
+    },
+  })
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
-        {/* Background video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src="/vid.mp4" type="video/mp4" />
-          {/* Optionally add a fallback image */}
-          Your browser does not support the video tag.
-        </video>
-        {/* Optional overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-20">
-          <div className="text-center space-y-8">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white text-balance drop-shadow-lg">
-              Empowering Your Investments
-            </h1>
-            <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto text-pretty drop-shadow">
-              Professional capital market services with expert guidance, innovative strategies, and proven results for
-              your financial future.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white-600 text-white hover:bg-red-600/10 bg-transparent"
+      <motion.section
+        className="relative py-24 lg:py-32 bg-gradient-to-br from-background to-muted/30"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center space-y-12" variants={stagger(0.15)}>
+            <div className="space-y-6">
+              <motion.h1
+                className="text-5xl md:text-7xl lg:text-8xl font-italiana text-foreground leading-tight"
+                variants={fadeInUp}
               >
-                View Portfolio
-              </Button>
+                Guiding Your Capital Towards
+                <br />
+                <motion.span className="text-primary inline-block" variants={scaleIn}>
+                  Sustainable Growth
+                </motion.span>
+              </motion.h1>
+
+              <motion.p
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-dm-sans font-light leading-relaxed"
+                variants={fadeInUp}
+              >
+                Aruna Jaya Capital is an asset management firm built on deep research, disciplined market analysis, and a long-term, victory-oriented investing philosophy.
+              </motion.p>
             </div>
-          </div>
+
+            <motion.div className="flex flex-col sm:flex-row gap-4 justify-center items-center" variants={fadeIn}>
+              <motion.div whileHover={{ scale: prefersReducedMotion ? 1 : 1.04 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  size="lg"
+                  className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300"
+                >
+                  Explore Our Portfolio <Send />
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Stats Section */}
-      {/* <section className="py-16 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "$2.5B+", label: "Assets Under Management" },
-              { value: "500+", label: "Active Clients" },
-              { value: "15+", label: "Years Experience" },
-              { value: "98%", label: "Client Satisfaction" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                <div className="text-muted-foreground text-sm">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      {/* What We Do — At a Glance (replacing Investment Philosophy & Criteria) */}
+      <motion.section
+        className="py-24 bg-muted/20"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-20" variants={stagger(0.1)}>
+            <motion.h2
+              className="text-4xl md:text-5xl font-italiana text-foreground mb-6"
+              variants={fadeInUp}
+            >
+              What We Do — At a Glance
+            </motion.h2>
+            <motion.p
+              className="text-lg text-muted-foreground max-w-2xl mx-auto font-dm-sans font-light leading-relaxed"
+              variants={fadeInUp}
+            >
+              A clear, repeatable workflow from discovery to reporting. Learn the full
+              philosophy on our{" "}
+              <a href="/about" className="text-primary underline underline-offset-4">
+                About
+              </a>{" "}
+              page.
+            </motion.p>
+          </motion.div>
 
-      {/* Services Section */}
-      {/* <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-              Comprehensive Financial Services
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              From investment advisory to portfolio management, we provide end-to-end solutions for your financial
-              goals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: TrendingUp,
-                title: "Investment Advisory",
+                icon: Zap,
+                title: "Research",
                 description:
-                  "Expert guidance on market opportunities and investment strategies tailored to your risk profile.",
+                  "Bottom-up sector coverage and idea generation backed by data and primary sources.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Portfolio Build",
+                description:
+                  "Sizing by conviction and risk; staged entries and exits to improve average price.",
               },
               {
                 icon: Shield,
-                title: "Risk Management",
-                description: "Comprehensive risk assessment and mitigation strategies to protect your investments.",
-              },
-              {
-                icon: BarChart3,
-                title: "Portfolio Management",
-                description: "Active portfolio management with regular rebalancing and performance optimization.",
-              },
-              {
-                icon: Target,
-                title: "Financial Planning",
-                description: "Long-term financial planning to help you achieve your wealth accumulation goals.",
-              },
-              {
-                icon: Award,
-                title: "Market Research",
-                description: "In-depth market analysis and research reports to inform your investment decisions.",
+                title: "Risk Controls",
+                description:
+                  "Pre-defined downside, diversification, liquidity checks, and post-mortems for every trade.",
               },
               {
                 icon: Users,
-                title: "Wealth Management",
-                description: "Personalized wealth management services for high-net-worth individuals and families.",
+                title: "Reporting",
+                description:
+                  "Transparent ‘what we own & why’, KPI tracking, and periodic letters to stakeholders.",
               },
-            ].map((service, index) => (
-              <Card key={index} className="border-border hover:border-primary/20 transition-colors group">
-                <CardHeader>
-                  <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <service.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl text-foreground">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed">
-                    {service.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                className="group"
+                variants={fadeInUp}
+                whileHover={{ y: prefersReducedMotion ? 0 : -4 }}
+              >
+                <motion.div
+                  className="h-full bg-background rounded-2xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+                  variants={scaleIn}
+                >
+                  <motion.div
+                    className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5"
+                    initial={false}
+                    whileHover={{ scale: prefersReducedMotion ? 1 : 1.06 }}
+                  >
+                    <item.icon className="h-7 w-7 text-primary" />
+                  </motion.div>
+                  <motion.h3
+                    className="text-xl font-italiana text-foreground mb-3"
+                    variants={fadeInUp}
+                  >
+                    {item.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-muted-foreground leading-relaxed font-dm-sans font-light"
+                    variants={fadeInUp}
+                  >
+                    {item.description}
+                  </motion.p>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </section> */}
 
-      {/* Services Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">Stock Criteria</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Our systematic approach to evaluating investment opportunities based on fundamental analysis and market
-              dynamics.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {[
-              {
-                icon: TrendingUp,
-                title: "Robust Financial Performance",
-                description:
-                  "Strong revenue growth, healthy profit margins, and consistent earnings that demonstrate sustainable business models.",
-              },
-              {
-                icon: Shield,
-                title: "Positive Market Sentiments",
-                description:
-                  "Favorable market outlook, investor confidence, and positive analyst coverage supporting long-term growth potential.",
-              },
-            ].map((service, index) => (
-              <Card key={index} className="border-border hover:border-primary/20 transition-colors group">
-                <CardHeader>
-                  <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <service.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl text-foreground">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed">
-                    {service.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {/* Mini-CTA row */}
+          <motion.div
+            className="mt-14 flex flex-col sm:flex-row gap-4 justify-center"
+            variants={fadeInUp}
+          >
+            <a href="/about">
+              <Button
+                size="lg"
+                className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300"
+              >
+                Learn Our Philosophy <Send className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+            <a href="/portfolio">
+              <Button
+                size="lg"
+                variant="outline"
+                className="cursor-pointer px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300"
+              >
+                View Portfolio
+              </Button>
+            </a>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
-                Why Choose Aruna Jaya Capital?
-              </h2>
-              <div className="space-y-6">
+      <motion.section
+        className="py-24"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <motion.div className="space-y-12" variants={stagger(0.1)}>
+              <motion.div variants={fadeInUp}>
+                <h2 className="text-4xl md:text-5xl font-italiana text-foreground mb-6">
+                  Why Choose
+                  <br />
+                  <span className="text-primary">Aruna Jaya Capital?</span>
+                </h2>
+              </motion.div>
+
+              <motion.div className="space-y-8" variants={stagger(0.15)}>
                 {[
                   {
                     icon: Zap,
-                    title: "Dawn of New Opportunities",
-                    description: "Like Aruna (dawn), we illuminate new investment possibilities and market insights.",
+                    title: "Aruna — First Light",
+                    description:
+                      "We surface opportunities early and act with clarity—like the dawn that reveals the path ahead.",
                   },
                   {
                     icon: Shield,
-                    title: "Victory-Oriented Approach",
+                    title: "Jaya — Discipline to Win",
                     description:
-                      "Jaya (victory) guides our commitment to achieving positive outcomes in capital markets.",
+                      "Repeatable process from research to post-trade review. Protect first, compound next, chase noise never.",
                   },
                   {
                     icon: Users,
-                    title: "Collaborative Excellence",
+                    title: "Analyst-Driven Coverage",
                     description:
-                      "Our team shares equal responsibility in developing comprehensive investment strategies.",
+                      "Each analyst owns specific sectors to ensure depth, accountability, and transparent ‘what we own and why.’",
                   },
                 ].map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="bg-primary/10 p-2 rounded-lg flex-shrink-0">
-                      <feature.icon className="h-5 w-5 text-primary" />
-                    </div>
+                  <motion.div
+                    key={index}
+                    className="flex items-start space-x-6"
+                    variants={fadeInUp}
+                    whileHover={{ x: prefersReducedMotion ? 0 : 3 }}
+                  >
+                    <motion.div
+                      className="bg-primary/10 p-3 rounded-xl flex-shrink-0"
+                      whileHover={{ rotate: prefersReducedMotion ? 0 : 2, scale: prefersReducedMotion ? 1 : 1.05 }}
+                    >
+                      <feature.icon className="h-6 w-6 text-primary" />
+                    </motion.div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                      <h3 className="text-xl font-italiana text-foreground mb-3">{feature.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed font-dm-sans font-light">{feature.description}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+              </motion.div>
+            </motion.div>
+
+            <motion.div className="relative" variants={slideInImg}>
+              <motion.div className="rounded-3xl overflow-hidden shadow-2xl" variants={scaleIn}>
+                <motion.img
                   src="/financial-market-analysis-chart.jpg"
-                  alt="Capital Market Analysis - Financial charts and market data visualization"
-                  className="w-full h-96 object-cover"
+                  alt="Aruna Jaya Capital — disciplined market analysis with price, volume, and fundamentals"
+                  className="w-full h-[500px] object-cover"
+                  whileHover={{ scale: prefersReducedMotion ? 1 : 1.02 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 18 }}
                 />
-                
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section className="py-20">
+      <motion.section
+        className="py-24 bg-primary/5"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={stagger(0.05)}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
-            Start Your Investment Journey Today
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 text-pretty">
-            Get personalized investment advice from our expert team and take control of your financial future.
-          </p>
+          <motion.div className="space-y-8" variants={stagger(0.12)}>
+            <motion.h2 className="text-4xl md:text-5xl font-italiana text-foreground" variants={fadeInUp}>
+              Ready to Compound
+              <br />
+              <span className="text-primary">With Discipline</span>
+            </motion.h2>
+
+            <motion.p
+              className="text-lg text-muted-foreground max-w-2xl mx-auto font-dm-sans font-light leading-relaxed"
+              variants={fadeInUp}
+            >
+              Get a tailored strategy—from discovery to execution—aligned with your risk profile and long-term goals.
+            </motion.p>
+
+            <motion.div
+              className="pt-4"
+              variants={fadeIn}
+              whileHover={{ y: prefersReducedMotion ? 0 : -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                size="lg"
+                className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300"
+              >
+                Request Consultation <Send />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

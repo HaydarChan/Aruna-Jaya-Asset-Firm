@@ -1,244 +1,271 @@
+"use client"
+import { motion, useReducedMotion } from "framer-motion"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Eye, Target, Heart, Award, Users, TrendingUp, Shield, Zap } from "lucide-react"
+import { TrendingUp, Shield, Zap } from "lucide-react"
+import Image from "next/image"
+import Capital from "../../public/capital.jpg"
+
 
 export default function AboutPage() {
+  const prefersReducedMotion = useReducedMotion()
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 22 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  }
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.5 } },
+  }
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: prefersReducedMotion ? 1 : 0.96 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.45, ease: "easeOut" } },
+  }
+
+  const slideIn = {
+    hidden: { opacity: 0, x: prefersReducedMotion ? 0 : 36 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  }
+
+  const stagger = (delay = 0) => ({
+    hidden: {},
+    show: {
+      transition: {
+        delayChildren: delay,
+        staggerChildren: 0.12,
+      },
+    },
+  })
+
+  const teamMembers = [
+    {
+      name: "Jeremy Nico Estrada Sitorus",
+      role: "Capital Market Analyst",
+      specialization: "Financial, Energy",
+      bio: "Jeremy covers financials and energy with a focus on earnings quality, capital allocation, and commodity-linked cycles.",
+      image: "/Foto jeco.jpg",
+    },
+    {
+      name: "Aisyah Ittaqi",
+      role: "Capital Market Analyst",
+      specialization: "Basic Industry, Health",
+      bio: "Aisyah tracks basic industry and healthcare, mapping structural demand, input costs, and regulatory impacts.",
+      image: "/professional-asian-businesswoman-headshot.jpg",
+    },
+    {
+      name: "Nindya Qurrota 'Aini",
+      role: "Capital Market Analyst",
+      specialization: "Financial, Infrastructure",
+      bio: "Nindya connects macro signals to equity positioning through cycle staging and liquidity conditions.",
+      image: "/Foto Nindya.jpg",
+    },
+    {
+      name: "Nataliana Alma",
+      role: "Capital Market Analyst",
+      specialization: "Basic Materials, Energy",
+      bio: "Nataliana focuses on materials and property, evaluating supply-demand, balance sheets, and valuation dispersion.",
+      image: "/foto lily.jpg",
+    },
+    {
+      name: "Atqiya Haydar",
+      role: "Capital Market Analyst",
+      specialization: "Properties, Telecommunications",
+      bio: "Shabrina analyzes property and telecom, monitoring pricing power, tenancy metrics, and spectrum/infra cycles.",
+      image: "/foto qiya.jpeg",
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
-  {/* Background image */}
-  <img
-    src="/dawn.png"
-    alt="Dawn"
-    className="absolute inset-0 w-full h-full object-cover z-0"
-  />
-  {/* Optional overlay for better text contrast */}
-  <div className="absolute inset-0 bg-black/40 z-10" />
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-20">
-    <div className="text-center space-y-8">
-      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg text-balance">
-        From Dawn to <span className="text-yellow-400">Victory</span>
-      </h1>
-      <p className="text-xl text-white max-w-3xl mx-auto text-pretty drop-shadow">
-        Aruna Jaya Capital embodies the Sanskrit meaning of dawn (अरुण) and victory, representing new
-        beginnings and positive energy in capital market investment and management. Created to fulfill the
-        requirements of MB0413 Capital Market.
-      </p>
-    </div>
-  </div>
-</section>
-
-      {/* Mission, Vision, Values */}
-      <section className="py-20 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <Card className="border-border text-center">
-              <CardHeader>
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">Our Mission</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-muted-foreground leading-relaxed">
-                  To illuminate the path of capital market understanding like the dawn (Aruna), bringing new insights
-                  and positive energy to investment philosophy and portfolio development strategies.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border text-center">
-              <CardHeader>
-                <div className="bg-secondary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Eye className="h-8 w-8 text-secondary" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">Our Vision</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-muted-foreground leading-relaxed">
-                  To achieve victory (Jaya) in capital market education by demonstrating comprehensive investment
-                  approaches that bring growth, prosperity, and understanding to the field of capital management.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border text-center">
-              <CardHeader>
-                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">Our Values</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-muted-foreground leading-relaxed">
-                  Collaborative excellence, shared responsibility, and innovative thinking guide our approach. We
-                  believe in equal contribution from all team members in developing comprehensive capital market
-                  strategies.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
+      {/* Hero (concise) */}
+      <motion.section
+        className="relative py-16 lg:py-24 overflow-hidden"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={stagger()}
+      >
+        {/* Background image */}
+        <motion.div className="absolute inset-0 z-0" variants={fadeIn}>
+          <Image
+            src={Capital}
+            alt="Capital"
+            fill
+            className="object-cover"
+            priority
+          />
+        </motion.div>
+        <motion.div
+          className="absolute inset-0 bg-black/40 z-10"
+          variants={fadeIn}
+        />
+        <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <motion.h1
+            className="font-italiana text-3xl md:text-5xl text-white drop-shadow-lg"
+            variants={fadeInUp}
+          >
+            Aruna Jaya Capital — A New Day, A New Beginning
+          </motion.h1>
+          <motion.p
+            className="text-white/90 max-w-3xl mx-auto text-lg"
+            variants={fadeInUp}
+          >
+            We aspire to bring growth, prosperity, trustworthiness, and stability. At AJ Capital, we turn opportunities
+            into sustainable growth through a disciplined approach to public markets.
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Company Story */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">Our Philosophy</h2>
-              <div className="space-y-6 text-muted-foreground leading-relaxed">
-                <p>
-                  The name Aruna (अरुण) comes from Sanskrit, meaning the light of dawn or sunrise, symbolizing new
-                  beginnings and positive energy. Combined with Jaya, which means victory, the name reflects our
-                  aspiration to bring growth, prosperity, and success in capital market understanding.
-                </p>
-                <p>
-                  Our investment philosophy centers on illuminating new opportunities like the dawn brings light to
-                  darkness. We believe in comprehensive market analysis, strategic portfolio development, and
-                  collaborative decision-making processes.
-                </p>
-                <p>
-                  This approach was developed to demonstrate excellence in capital market concepts and fulfill the
-                  academic requirements of MB0413 Capital Market, showcasing how theoretical knowledge translates into
-                  practical investment strategies.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8">
-                <div className="grid grid-cols-2 gap-6">
-                  {[
-                    { icon: Award, label: "Sanskrit Origin", value: "अरुण" },
-                    { icon: Users, label: "Team Approach", value: "Equal" },
-                    { icon: TrendingUp, label: "Focus Area", value: "Growth" },
-                    { icon: Shield, label: "Philosophy", value: "Victory" },
-                  ].map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div className="bg-background/50 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <stat.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Investment Philosophy (only) */}
+      <motion.section
+        className="py-16 bg-card"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-10" variants={stagger(0.08)}>
+            <motion.h2
+              className="font-italiana text-2xl md:text-4xl text-foreground mb-3"
+              variants={fadeInUp}
+            >
+              Our Investment Philosophy
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
+              A strict dual-pillar framework:{" "}
+              <span className="text-foreground font-medium">proven financial health</span> and{" "}
+              <span className="text-foreground font-medium">positive catalysts</span> that create momentum for growth.
+              The best investments are born from solid numbers and compelling narratives.
+            </motion.p>
+          </motion.div>
 
-      {/* Investment Philosophy Section */}
-      <section className="py-20 bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">Investment Philosophy</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              How we develop our portfolio strategies and approach capital market opportunities.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 icon: Shield,
-                title: "Dawn Analysis",
-                description:
-                  "Like dawn reveals the landscape, we illuminate market opportunities through comprehensive analysis.",
+                title: "Proven Financial Health",
+                desc:
+                  "Quality balance sheets, resilient cash flows, healthy margins, and prudent capital allocation as the base case.",
               },
               {
                 icon: TrendingUp,
-                title: "Growth Focus",
-                description:
-                  "Our portfolio development emphasizes sustainable growth and long-term value creation strategies.",
+                title: "Positive Catalysts",
+                desc:
+                  "Earnings inflections, product cycles, regulatory changes, or market structure shifts that accelerate fundamentals.",
               },
               {
                 icon: Zap,
-                title: "Innovation Approach",
-                description:
-                  "We embrace new methodologies and analytical tools to enhance portfolio performance insights.",
+                title: "Disciplined Execution",
+                desc:
+                  "Sizing aligned to risk, staged entries/exits, and continuous review to protect first and compound next.",
               },
-              {
-                icon: Users,
-                title: "Collaborative Strategy",
-                description:
-                  "Equal responsibility among team members ensures comprehensive evaluation of all investment decisions.",
-              },
-            ].map((principle, index) => (
-              <Card key={index} className="border-border text-center hover:border-primary/20 transition-colors">
-                <CardHeader>
-                  <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <principle.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-lg text-foreground">{principle.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground text-sm leading-relaxed">
-                    {principle.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                whileHover={{ y: prefersReducedMotion ? 0 : -4 }}
+              >
+                <motion.div
+                  className="h-full border border-border/50 rounded-2xl bg-background text-center"
+                  variants={scaleIn}
+                >
+                  <Card className="border-0 shadow-none">
+                    <CardHeader>
+                      <motion.div
+                        className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3"
+                        whileHover={{ scale: prefersReducedMotion ? 1 : 1.06 }}
+                      >
+                        <p.icon className="h-6 w-6 text-primary" />
+                      </motion.div>
+                      <CardTitle className="text-lg font-italiana">{p.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                        {p.desc}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Core Principles */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">Our Core Principles</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              The fundamental beliefs that guide our investment philosophy and client relationships.
-            </p>
-          </div>
+      {/* Team (only) */}
+      <motion.section
+        className="py-16"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={stagger()}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-10" variants={stagger(0.08)}>
+            <motion.h2
+              className="font-italiana text-2xl md:text-4xl text-foreground mb-3"
+              variants={fadeInUp}
+            >
+              Meet Our <span className="text-primary">Team</span>
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
+              Analyst-driven coverage with clear accountability over sectors—so you always know what we own and why.
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: "Risk Management",
-                description: "Capital preservation is our first priority in every investment decision.",
-              },
-              {
-                icon: TrendingUp,
-                title: "Long-term Focus",
-                description: "We build portfolios designed to compound wealth over decades, not quarters.",
-              },
-              {
-                icon: Zap,
-                title: "Innovation",
-                description: "Embracing new technologies and strategies to enhance client outcomes.",
-              },
-              {
-                icon: Users,
-                title: "Client Partnership",
-                description: "Your success is our success. We align our interests with yours completely.",
-              },
-            ].map((principle, index) => (
-              <Card key={index} className="border-border text-center hover:border-primary/20 transition-colors">
-                <CardHeader>
-                  <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <principle.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-lg text-foreground">{principle.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground text-sm leading-relaxed">
-                    {principle.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((m, i) => (
+              <motion.div
+                key={i}
+                variants={slideIn}
+                whileHover={{ y: prefersReducedMotion ? 0 : -3 }}
+              >
+                <Card className="border-border hover:border-primary/20 transition-colors h-full">
+                  <CardHeader className="text-center">
+                    <motion.div
+                      className="relative mx-auto mb-5"
+                      initial={false}
+                      whileHover={{ scale: prefersReducedMotion ? 1 : 1.03 }}
+                    >
+                      <img
+                        src={m.image || "/placeholder.svg"}
+                        alt={`${m.name} headshot`}
+                        className="w-28 h-28 rounded-full object-cover mx-auto border-4 border-primary/10"
+                      />
+                    </motion.div>
+                    <CardTitle className="text-lg font-italiana">{m.name}</CardTitle>
+                    <CardDescription className="text-primary font-medium">{m.role}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-center">
+                    <motion.div className="text-sm text-muted-foreground" variants={fadeIn}>
+                      <strong>Specialization:</strong> {m.specialization}
+                    </motion.div>
+                    <motion.p
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      variants={fadeInUp}
+                    >
+                      {m.bio}
+                    </motion.p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

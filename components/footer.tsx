@@ -1,33 +1,33 @@
 import Link from "next/link"
-import { TrendingUp, Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react"
+import Image from "next/image"
+import { Mail, Phone, MapPin } from "lucide-react"
+import Logo from "../public/LogoArunaJaya.png"
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-muted/30 border-t border-border/50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="bg-primary p-2 rounded-lg">
-                <TrendingUp className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">AJ Capital</span>
+          <div className="space-y-6">
+            <div className="flex items-center space-x-3">
+              <Image src={Logo} alt="Aruna Jaya Logo" width={60} height={60} />
+              <span className="text-2xl font-italiana text-primary">Aruna Jaya</span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed font-dm-sans font-light max-w-sm">
               Empowering your investments with professional capital market services and expert financial guidance.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {["About Us", "Portfolio", "News", "Team"].map((item) => (
+            <h3 className="text-lg font-italiana text-foreground mb-6">Quick Links</h3>
+            <ul className="space-y-3">
+              {["About Us", "Portfolio"].map((item: string) => (
                 <li key={item}>
                   <Link
                     href={`/${item.toLowerCase().replace(" ", "-")}`}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-300 font-dm-sans font-light"
                   >
                     {item}
                   </Link>
@@ -36,43 +36,35 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
-          {/* <div>
-            <h3 className="font-semibold text-foreground mb-4">Services</h3>
-            <ul className="space-y-2">
-              {["Investment Advisory", "Portfolio Management", "Market Analysis", "Financial Planning"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div> */}
-
           {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Contact</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground text-sm">info@ajcapital.com</span>
+            <h3 className="text-lg font-italiana text-foreground mb-6">Contact</h3>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <Mail className="h-4 w-4 text-primary" />
+                </div>
+                <span className="text-muted-foreground font-dm-sans font-light">info@ajcapital.com</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground text-sm">+62 11 111111</span>
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <Phone className="h-4 w-4 text-primary" />
+                </div>
+                <span className="text-muted-foreground font-dm-sans font-light">+62 11 111111</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground text-sm">Bandung, West Java</span>
+              <div className="flex items-center space-x-3">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                  <MapPin className="h-4 w-4 text-primary" />
+                </div>
+                <span className="text-muted-foreground font-dm-sans font-light">Bandung, West Java</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-muted-foreground text-sm">
-            © 2024 Aruna Jaya Capital. All rights reserved. | Privacy Policy | Terms of Service
+        <div className="border-t border-border/50 mt-12 pt-8 text-center">
+          <p className="text-muted-foreground font-dm-sans font-light">
+            © 2024 Aruna Jaya. All rights reserved. | Privacy Policy | Terms of Service
           </p>
         </div>
       </div>
