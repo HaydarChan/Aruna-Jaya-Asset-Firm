@@ -47,7 +47,7 @@ export default function AboutPage() {
       role: "Capital Market Analyst",
       specialization: "Financial, Energy",
       bio: "Jeremy covers financials and energy with a focus on earnings quality, capital allocation, and commodity-linked cycles.",
-      image: "/Foto jeco.jpg",
+      image: "/Foto jeco.JPG",
     },
     {
       name: "Aisyah Ittaqi",
