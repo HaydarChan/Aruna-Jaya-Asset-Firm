@@ -4,9 +4,26 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { TrendingUp, Shield, Users, Zap, Send } from "lucide-react"
 import { motion, useReducedMotion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 export default function HomePage() {
   const prefersReducedMotion = useReducedMotion()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  // Track mouse position for parallax effect
+  useEffect(() => {
+    if (!prefersReducedMotion) {
+      const handleMouseMove = (e) => {
+        setMousePosition({
+          x: (e.clientX - window.innerWidth / 2) / 50,
+          y: (e.clientY - window.innerHeight / 2) / 50,
+        })
+      }
+      
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [prefersReducedMotion])
 
   const fadeInUp = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 24 },
@@ -38,19 +55,207 @@ export default function HomePage() {
     },
   })
 
+  // Floating animation variants
+  const floatingVariants = {
+    animate: {
+      y: [-20, 20, -20],
+      rotate: [0, 5, -5, 0],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  }
+
+  const pulseVariants = {
+    animate: {
+      scale: [1, 1.1, 1],
+      opacity: [0.3, 0.6, 0.3],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  }
+
+  const orbitalVariants = {
+    animate: {
+      rotate: 360,
+      transition: {
+        duration: 20,
+        repeat: Infinity,
+        ease: "linear",
+      },
+    },
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
+      {/* Hero Section with Animated Background */}
       <motion.section
-        className="relative py-24 lg:py-32 bg-gradient-to-br from-background to-muted/30"
+        className="relative py-24 lg:py-32 bg-gradient-to-br from-background via-background to-muted/30 overflow-hidden"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
         variants={stagger()}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Animated Background Elements */}
+        {!prefersReducedMotion && (
+          <>
+            {/* Floating Geometric Shapes */}
+            <motion.div
+              className="absolute top-20 left-10 w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-sm"
+              variants={floatingVariants}
+              animate="animate"
+              style={{
+                x: mousePosition.x * 0.5,
+                y: mousePosition.y * 0.5,
+              }}
+            />
+            
+            <motion.div
+              className="absolute top-40 right-20 w-16 h-16 rotate-45 bg-gradient-to-br from-primary/15 to-primary/5 backdrop-blur-sm"
+              variants={floatingVariants}
+              animate="animate"
+              style={{
+                x: mousePosition.x * -0.3,
+                y: mousePosition.y * -0.3,
+              }}
+            />
+
+            <motion.div
+              className="absolute bottom-32 left-20 w-32 h-32 rounded-full bg-gradient-to-br from-primary/10 to-transparent backdrop-blur-sm"
+              variants={floatingVariants}
+              animate="animate"
+              style={{
+                x: mousePosition.x * 0.7,
+                y: mousePosition.y * 0.7,
+              }}
+            />
+
+            {/* Pulsing Dots */}
+            <motion.div
+              className="absolute top-32 right-32 w-4 h-4 rounded-full bg-primary/40"
+              variants={pulseVariants}
+              animate="animate"
+            />
+            
+            <motion.div
+              className="absolute bottom-40 right-16 w-6 h-6 rounded-full bg-primary/30"
+              variants={pulseVariants}
+              animate="animate"
+              style={{ animationDelay: '1s' }}
+            />
+
+            <motion.div
+              className="absolute top-1/2 left-16 w-3 h-3 rounded-full bg-primary/50"
+              variants={pulseVariants}
+              animate="animate"
+              style={{ animationDelay: '2s' }}
+            />
+
+            {/* Orbital Ring */}
+            <motion.div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-primary/10"
+              variants={orbitalVariants}
+              animate="animate"
+            >
+              <motion.div
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary/40"
+                animate={{
+                  rotate: -360,
+                  transition: {
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              />
+            </motion.div>
+
+            {/* Large Orbital Ring */}
+            <motion.div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-primary/5"
+              animate={{
+                rotate: -360,
+                transition: {
+                  duration: 40,
+                  repeat: Infinity,
+                  ease: "linear",
+                },
+              }}
+            >
+              <motion.div
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary/30"
+                animate={{
+                  rotate: 360,
+                  transition: {
+                    duration: 40,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              />
+              <motion.div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 rounded-full bg-primary/20"
+                animate={{
+                  rotate: 360,
+                  transition: {
+                    duration: 40,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+              />
+            </motion.div>
+
+            {/* Gradient Blobs */}
+            <motion.div
+              className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-primary/5 via-primary/10 to-transparent blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                rotate: [0, 90, 0],
+                transition: {
+                  duration: 15,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+              }}
+            />
+
+            <motion.div
+              className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-gradient-to-tr from-primary/8 via-primary/5 to-transparent blur-2xl"
+              animate={{
+                scale: [1.2, 1, 1.2],
+                rotate: [0, -90, 0],
+                transition: {
+                  duration: 12,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+              }}
+            />
+
+            {/* Subtle Grid Pattern */}
+            <div 
+              className="absolute inset-0 opacity-[0.02]"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, hsl(var(--primary)) 1px, transparent 1px),
+                  linear-gradient(to bottom, hsl(var(--primary)) 1px, transparent 1px)
+                `,
+                backgroundSize: '60px 60px',
+              }}
+            />
+          </>
+        )}
+
+        {/* Content */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div className="text-center space-y-12" variants={stagger(0.15)}>
             <div className="space-y-6">
               <motion.h1
@@ -76,7 +281,7 @@ export default function HomePage() {
               <motion.div whileHover={{ scale: prefersReducedMotion ? 1 : 1.04 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   size="lg"
-                  className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300"
+                  className="cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-dm-sans font-medium transition-all duration-300 shadow-lg"
                 >
                   Explore Our Portfolio <Send />
                 </Button>
@@ -86,7 +291,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* What We Do — At a Glance (replacing Investment Philosophy & Criteria) */}
+      {/* What We Do — At a Glance */}
       <motion.section
         className="py-24 bg-muted/20"
         initial="hidden"
@@ -139,7 +344,7 @@ export default function HomePage() {
                 icon: Users,
                 title: "Reporting",
                 description:
-                  "Transparent ‘what we own & why’, KPI tracking, and periodic letters to stakeholders.",
+                  "Transparent 'what we own & why', KPI tracking, and periodic letters to stakeholders.",
               },
             ].map((item, i) => (
               <motion.div
@@ -239,7 +444,7 @@ export default function HomePage() {
                     icon: Users,
                     title: "Analyst-Driven Coverage",
                     description:
-                      "Each analyst owns specific sectors to ensure depth, accountability, and transparent ‘what we own and why.’",
+                      "Each analyst owns specific sectors to ensure depth, accountability, and transparent 'what we own and why.'",
                   },
                 ].map((feature, index) => (
                   <motion.div
